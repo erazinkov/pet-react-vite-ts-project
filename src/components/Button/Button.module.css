@@ -1,0 +1,15 @@
+.button {
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.5rem;
+    background: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: var(--roboto);
+    color: var(--text-color);
+}
+
+.button:hover {
+    background: var(--primary-hover-color);
+}

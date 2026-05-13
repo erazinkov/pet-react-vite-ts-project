@@ -1,0 +1,14 @@
+.input {
+    background: none;
+    border: 1px solid var(--text-color);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    font-family: var(--roboto);
+    font-size: 1.25rem;
+}
+
+.invalid {
+    border: 1px solid salmon;
+    background: lightsalmon;
+}
