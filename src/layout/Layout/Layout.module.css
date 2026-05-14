@@ -9,6 +9,20 @@
     padding: 1rem;
     border-right: 1px solid var(--primary-color);
 }
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    justify-content: center;
+}
+.logo-item {
+    max-width: 2.0rem;
+}
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
 
 .menu-item {
     display: flex;
@@ -17,4 +31,21 @@
     color: var(--text-color);
     font-size: 1.25rem;
     font-family: var(--roboto);
+}
+
+.menu-item_active {
+    color: var(--primary-color);
+}
+
+.menu-item:hover {
+    color: var(--primary-color);
+}
+
+.exit {
+    margin-top: auto;
+}
+
+.main {
+    width: 100%;
+    padding: 1rem;
 }
