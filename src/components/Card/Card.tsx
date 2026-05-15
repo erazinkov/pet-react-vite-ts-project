@@ -1,14 +1,12 @@
 import type { CardProps } from './Card.props';
 import styles from './Card.module.css';
 import { Link } from 'react-router-dom';
+import priceFormatter from '../../utils/utils';
 
 function Card(props: CardProps) {
-	const priceFormatter = new Intl.NumberFormat('ru-RU', {
-		style: 'currency',
-		currency: 'RUB'
-	});
+
 	return  (
-		<Link to={`/product/${props.id}`} className={styles['link']}>
+		<Link to={`/products/${props.id}`} className={styles['link']}>
 			<div className={styles['card']} >
 				<div className={styles['header']} style={{
 					backgroundImage: `url('${props.thumbnail}')`,
