@@ -34,9 +34,9 @@ const router = createBrowserRouter([
 				errorElement: <Error />,
 				loader: async ({ params }) => {
 					return {
-						data: new Promise((resolve) => {
+						data: new Promise((resolve, reject) => {
 							setTimeout(() => {
-								axios.get(`${PREFIX}/products/${params.id}`).then(res => resolve(res.data));
+								axios.get(`${PREFIX}/products/${params.id}`).then(res => resolve(res.data)).catch(e => reject(e));
 							}, 1000);
 						})
 					};
