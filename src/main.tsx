@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Menu } from './pages/Menu/Menu';
+import { Catalog } from './pages/Catalog/Catalog.tsx';
 import { Cart } from './pages/Cart/Cart';
 import { Error } from './pages/Error/Error';
 import { Product } from './pages/Product/Product.tsx';
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: '/',
-				element: <Menu />
+				element: <Catalog />
 			},
 			{
 				path: '/cart',

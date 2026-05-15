@@ -7,7 +7,7 @@
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
-    border-right: 1px solid var(--primary-color);
+    border-right: 1px solid var(--text-color);
 }
 .logo {
     display: flex;
@@ -18,13 +18,13 @@
 .logo-item {
     max-width: 2.0rem;
 }
-.menu {
+.catalog {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.menu-item {
+.catalog-item {
     display: flex;
     gap: 0.5rem;
     text-decoration: none;
@@ -33,11 +33,11 @@
     font-family: var(--roboto);
 }
 
-.menu-item_active {
+.catalog-item_active {
     color: var(--primary-color);
 }
 
-.menu-item:hover {
+.catalog-item:hover {
     color: var(--primary-color);
 }
 

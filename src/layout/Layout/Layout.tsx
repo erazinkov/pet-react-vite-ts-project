@@ -20,21 +20,21 @@ export function Layout() {
 				<div className={styles['user-name']}>Mr.Ho</div>
 				<div className={styles['user-email']}>rmho@mail.com</div>
 			</div>
-			<div className={styles['menu']}>
-				<NavLink to="/" className={({ isActive }) => cn(styles['menu-item'], {
-					[styles['menu-item_active']]: isActive
+			<div className={styles['catalog']}>
+				<NavLink to="/" className={({ isActive }) => cn(styles['catalog-item'], {
+					[styles['catalog-item_active']]: isActive
 				})}>
-					<img src='/menu.svg' alt='Иконка Меню' className={styles['menu-icon']} />
-					<span>Меню</span>
+					<img src='/catalog.svg' alt='Иконка Каталог' className={styles['catalog-icon']} />
+					<span>Каталог</span>
 				</NavLink>
-				<NavLink to="/cart" className={({ isActive }) => cn(styles['menu-item'], {
-					[styles['menu-item_active']]: isActive
+				<NavLink to="/cart" className={({ isActive }) => cn(styles['catalog-item'], {
+					[styles['catalog-item_active']]: isActive
 				})}>
-					<img src='/cart.svg' alt='Иконка Корзина' className={styles['menu-icon']} />
+					<img src='/cart.svg' alt='Иконка Корзина' className={styles['catalog-icon']} />
 					<span>Корзина</span>
 				</NavLink>
+				<Button className={styles['exit']}>Выйти</Button>
 			</div>
-			<Button className={styles['exit']}>Выйти</Button>
 		</div>
 		<div className={styles['main']}>
 			<Outlet />
