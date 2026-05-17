@@ -2,16 +2,19 @@ import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-// import { Catalog } from './pages/Catalog/Catalog.tsx';
+import { Catalog } from './pages/Catalog/Catalog.tsx';
 import { Cart } from './pages/Cart/Cart';
 import { Error } from './pages/Error/Error';
 import { Product } from './pages/Product/Product.tsx';
 import { Layout } from './layout/Layout/Layout.tsx';
 import axios from 'axios';
 import { PREFIX } from './api/api.ts';
-import { lazy } from 'react';
+import { AuthLayout } from './layout/Auth/AuthLayout.tsx';
+import { Login } from './pages/Login/Login.tsx';
+import { Register } from './pages/Register/Register.tsx';
+// import { lazy } from 'react';
 
-const Catalog = lazy(() => import('./pages/Catalog/Catalog.tsx'));
+// const Catalog = lazy(() => import('./pages/Catalog/Catalog.tsx'));
 
 const router = createBrowserRouter([
 	{
@@ -41,6 +44,20 @@ const router = createBrowserRouter([
 						})
 					};
 				}
+			}
+		]
+	},
+	{
+		path: '/auth',
+		element: <AuthLayout />,
+		children: [
+			{
+				path: 'login',
+				element: <Login/>
+			},
+			{
+				path: 'register',
+				element: <Register/>
 			}
 		]
 	},
