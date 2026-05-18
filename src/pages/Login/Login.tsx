@@ -4,20 +4,48 @@ import Heading from '../../components/Heading/Heading';
 import Input from '../../components/Input/Input';
 import styles from './Login.module.css';
 import type { SubmitEvent } from 'react';
+import axios, { AxiosError } from 'axios';
+import { PREFIX } from '../../api/api';
+import { useState } from 'react';
+
+export type LoginFormData = {
+	username: {
+		value: string;
+	},
+	password: {
+		value: string;
+	}
+};
 
 export function Login() {
-	const onSubmit = (e: SubmitEvent) => {
+	const [error, setError] = useState<string | null>(null);
+
+	const sendLoginRequest = async (username: string, password: string) => {
+		try {
+			const { data } = await axios.post(`${PREFIX}/auth/login`, { username, password });
+			console.log('Ответ от сервера:', data);
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				setError(error.response?.data.message);
+				// setError(error.message);
+			}
+		}
+	};
+
+	const onSubmit = async (e: SubmitEvent) => {
 		e.preventDefault();
-		// const formData: FormData = new FormData(e.target);
-		// const data = Object.fromEntries(formData.entries());
-		console.log(e);
+		setError(null);
+		const data = e.target as typeof e.target & LoginFormData;
+		const { username, password } = data;
+		await sendLoginRequest(username.value, password.value);
 	};
 	return <div className={styles['login']}>
 		<Heading>Вход</Heading>
+		{error && <div className={styles['error']}>{error}</div>}
 		<form className={styles['form']} onSubmit={onSubmit}>
 			<div className={styles['form-field']}>
-				<label htmlFor='email'>Email</label>
-				<Input type="email" name="email" id="email" placeholder='Email'/>
+				<label htmlFor='username'>Username</label>
+				<Input type="text" name="username" id="username" placeholder='Username'/>
 			</div>
 			<div className={styles['form-field']}>
 				<label htmlFor='email'>Password</label>

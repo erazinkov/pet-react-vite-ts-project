@@ -12,6 +12,7 @@ import { PREFIX } from './api/api.ts';
 import { AuthLayout } from './layout/Auth/AuthLayout.tsx';
 import { Login } from './pages/Login/Login.tsx';
 import { Register } from './pages/Register/Register.tsx';
+import { Auth } from './api/auth.tsx';
 // import { lazy } from 'react';
 
 // const Catalog = lazy(() => import('./pages/Catalog/Catalog.tsx'));
@@ -19,7 +20,7 @@ import { Register } from './pages/Register/Register.tsx';
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Layout />,
+		element: <Auth><Layout /></Auth>,
 		children: [
 			{
 				path: '/',
