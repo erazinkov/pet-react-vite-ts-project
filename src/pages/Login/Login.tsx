@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import Heading from '../../components/Heading/Heading';
 import Input from '../../components/Input/Input';
@@ -7,6 +7,7 @@ import type { SubmitEvent } from 'react';
 import axios, { AxiosError } from 'axios';
 import { PREFIX } from '../../api/api';
 import { useState } from 'react';
+import type { Auth } from '../../interfaces/Auth.interface';
 
 export type LoginFormData = {
 	username: {
@@ -19,11 +20,14 @@ export type LoginFormData = {
 
 export function Login() {
 	const [error, setError] = useState<string | null>(null);
+	const navigate = useNavigate();
 
 	const sendLoginRequest = async (username: string, password: string) => {
 		try {
-			const { data } = await axios.post(`${PREFIX}/auth/login`, { username, password });
-			console.log('Ответ от сервера:', data);
+			const { data } = await axios.post<Auth>(`${PREFIX}/auth/login`, { username, password });
+			console.log(data);
+			localStorage.setItem('accessToken', data.accessToken);
+			navigate('/', { replace: true });
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				setError(error.response?.data.message);
@@ -45,10 +49,10 @@ export function Login() {
 		<form className={styles['form']} onSubmit={onSubmit}>
 			<div className={styles['form-field']}>
 				<label htmlFor='username'>Username</label>
-				<Input type="text" name="username" id="username" placeholder='Username'/>
+				<Input type="text" name="username" id="username" placeholder='Username' autoComplete="username"/>
 			</div>
 			<div className={styles['form-field']}>
-				<label htmlFor='email'>Password</label>
+				<label htmlFor='password'>Password</label>
 				<Input type="password" name="password" id="password" placeholder='Password'/>
 			</div>
 			<Button>Вход</Button>
