@@ -3,6 +3,8 @@ import { loadState } from './storage';
 import { PREFIX } from '../api/api';
 import type { Auth } from '../interfaces/Auth.interface';
 import axios, { AxiosError } from 'axios';
+import type { Profile } from '../interfaces/Profile.interface';
+import type { RootState } from './store';
 
 export const USERDATA_KEY_PERSISTENT_STATE = 'userData';
 
@@ -14,6 +16,7 @@ export interface UserPersistentState {
 export interface UserState {
     accessToken: string | null;
     loginErrorMessage?: string;
+	profile?: Profile;
 }
 
 const initialState: UserState = {
@@ -35,6 +38,18 @@ export const login = createAsyncThunk('user/login', async (credentials: { userna
 	}
 });
 
+export const getProfile = createAsyncThunk<Profile, void, { state: RootState }>('user/getProfile', 
+	async (_, thunkApi) => {
+		const accessToken = thunkApi.getState().user.accessToken;
+		const { data } = await axios.get<Profile>(`${PREFIX}/auth/me`, {
+			headers: {
+				'Authorization': `Bearer ${accessToken}`
+			},
+			withCredentials: true
+		});
+		return data;
+	});
+
 export const userSlice = createSlice({
 	name: 'user',
 	initialState: initialState,
@@ -48,6 +63,7 @@ export const userSlice = createSlice({
 		clearLoginErrorMessage: (state) => {
 			state.loginErrorMessage = undefined;
 		}
+
 	},
 	extraReducers: (builder) => {
 		builder.addCase(login.fulfilled, (state, action) => {
@@ -58,6 +74,9 @@ export const userSlice = createSlice({
 		});
 		builder.addCase(login.rejected, (state, action) => {
 			state.loginErrorMessage = action.error.message;
+		});
+		builder.addCase(getProfile.fulfilled, (state, action) => {
+			state.profile = action.payload;
 		});
 	}
 

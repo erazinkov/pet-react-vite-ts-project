@@ -11,7 +11,6 @@ export const store = configureStore({
 store.subscribe(() => {
 	const state = store.getState();
 	saveState(USERDATA_KEY_PERSISTENT_STATE, { accessToken: state.user.accessToken ?? '' });
-	// localStorage.setItem(USERDATA_KEY_PERSISTENT_STATE, state.user.accessToken ?? '');
 });
 
 export type RootState = ReturnType<typeof store.getState>;
