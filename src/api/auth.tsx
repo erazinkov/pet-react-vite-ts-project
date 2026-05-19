@@ -3,9 +3,9 @@ import { Navigate } from 'react-router-dom';
 
 
 export const Auth = ({ children }: { children: ReactNode }) => {
-	const jwt = localStorage.getItem('accessToken');
+	const accessToken = localStorage.getItem('accessToken');
 
-	if (!jwt) {
+	if (!accessToken) {
 		return <Navigate to="/auth/login" replace />;
 	}
 	return <>{children}</>;
