@@ -57,7 +57,7 @@ export function Catalog() {
 	return <>
 		<div className={styles['head']}>
 			<Heading>Каталог</Heading>
-			<Search></Search>
+			<Search name='search'></Search>
 		</div>
 		<div className={styles['products']}>
 			{

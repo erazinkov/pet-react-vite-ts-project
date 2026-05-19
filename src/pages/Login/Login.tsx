@@ -4,10 +4,11 @@ import Heading from '../../components/Heading/Heading';
 import Input from '../../components/Input/Input';
 import styles from './Login.module.css';
 import type { SubmitEvent } from 'react';
-import axios, { AxiosError } from 'axios';
-import { PREFIX } from '../../api/api';
-import { useState } from 'react';
-import type { Auth } from '../../interfaces/Auth.interface';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch } from '../../store/store';
+import { login, userActions } from '../../store/user.slice';
+import type { RootState } from '../../store/store';
 
 export type LoginFormData = {
 	username: {
@@ -19,33 +20,32 @@ export type LoginFormData = {
 };
 
 export function Login() {
-	const [error, setError] = useState<string | null>(null);
+	// const [error, setError] = useState<string | null>(null);
 	const navigate = useNavigate();
+	const dispatch = useDispatch<AppDispatch>();
+
+	const {accessToken , loginErrorMessage} = useSelector((state: RootState) => state.user);
+
+	useEffect(() => {
+		if (accessToken) {
+			navigate('/', { replace: true });
+		}
+	}, [accessToken, navigate]);
 
 	const sendLoginRequest = async (username: string, password: string) => {
-		try {
-			const { data } = await axios.post<Auth>(`${PREFIX}/auth/login`, { username, password });
-			console.log(data);
-			localStorage.setItem('accessToken', data.accessToken);
-			navigate('/', { replace: true });
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				setError(error.response?.data.message);
-				// setError(error.message);
-			}
-		}
+		dispatch(login({ username, password }));
 	};
 
 	const onSubmit = async (e: SubmitEvent) => {
 		e.preventDefault();
-		setError(null);
+		dispatch(userActions.clearLoginErrorMessage());
 		const data = e.target as typeof e.target & LoginFormData;
 		const { username, password } = data;
 		await sendLoginRequest(username.value, password.value);
 	};
 	return <div className={styles['login']}>
 		<Heading>Вход</Heading>
-		{error && <div className={styles['error']}>{error}</div>}
+		{loginErrorMessage && <div className={styles['error']}>{loginErrorMessage}</div>}
 		<form className={styles['form']} onSubmit={onSubmit}>
 			<div className={styles['form-field']}>
 				<label htmlFor='username'>Username</label>
