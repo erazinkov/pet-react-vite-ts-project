@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userSlice, { USERDATA_KEY_PERSISTENT_STATE } from './user.slice';
 import { saveState } from './storage';
-import cartSlice from './cart.slice';
+import cartSlice, { CARTDATA_KEY_PERSISTENT_STATE } from './cart.slice';
 
 export const store = configureStore({
 	reducer: {
@@ -13,6 +13,11 @@ export const store = configureStore({
 store.subscribe(() => {
 	const state = store.getState();
 	saveState(USERDATA_KEY_PERSISTENT_STATE, { accessToken: state.user.accessToken ?? '' });
+});
+
+store.subscribe(() => {
+	const state = store.getState();
+	saveState(CARTDATA_KEY_PERSISTENT_STATE, { items: state.cart.items });
 });
 
 export type RootState = ReturnType<typeof store.getState>;
