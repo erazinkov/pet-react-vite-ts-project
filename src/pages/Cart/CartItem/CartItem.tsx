@@ -11,8 +11,14 @@ import cn from 'classnames';
 function CartItem(props: CartItemProps) {
 	const dispatch = useDispatch<AppDispatch>();
     
-	const decrease = (e: MouseEvent) => {};
-	const remove = (e: MouseEvent) => {};
+	const decrease = (e: MouseEvent) => {
+		e.preventDefault();
+		dispatch(cartActions.remove(props.id));
+	};
+	const deleteItem = (e: MouseEvent) => {
+		e.preventDefault();
+		dispatch(cartActions.delete(props.id));
+	};
 
 	const increase = (e: MouseEvent) => {
 		e.preventDefault();
@@ -35,7 +41,7 @@ function CartItem(props: CartItemProps) {
 			<button className={cn(styles['button'], { [styles['button_disabled']]: props.count < 1 })} onClick={decrease}>-</button>
 			<div className={styles['count']}>{props.count}</div>
 			<button className={styles['button']} onClick={increase}>+</button>
-			<button className={styles['button']} onClick={remove}>X</button>
+			<button className={styles['button']} onClick={deleteItem}>X</button>
 		</div>
 		
 	</div>);

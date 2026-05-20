@@ -1,19 +1,11 @@
 .item {
     display: flex;
-    gap: 1rem;
     background: var(--white-color);
-    border-radius: 1rem;
-    max-width: 25rem;
+    max-width: 50rem;
     overflow: hidden;
-    box-shadow: 1rem;
-    box-shadow: var(--text-color) 0px 0px 0.25em, white 0px 0.25em 1em;
-    margin: 1rem;
-    padding: 0.5rem;
-    transition: transform 0.3s ease;
+    margin: 0.25rem;
 }
-.item:hover {
-    transform: scale(1.05);
-}
+
 .item-info {
     display: flex;
     flex-direction: column;
