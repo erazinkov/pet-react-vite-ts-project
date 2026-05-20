@@ -16,6 +16,7 @@ export interface UserPersistentState {
 export interface UserState {
     accessToken: string | null;
     loginErrorMessage?: string;
+	registerErrorMessage?: string;
 	profile?: Profile;
 }
 
@@ -38,6 +39,21 @@ export const login = createAsyncThunk('user/login', async (credentials: { userna
 	}
 });
 
+export const register = createAsyncThunk('user/register', async (credentials: { username: string, password: string }) => {
+	try {
+		const { data } = await axios.post<Auth>(`${PREFIX}/auth/login`, { 
+			username: credentials.username, 
+			password: credentials.password 
+		});
+		return data;
+        
+	} catch (error) {
+		if (error instanceof AxiosError) {
+			throw new Error(error.response?.data.message || 'Register failed');
+		}
+	}
+});
+
 export const getProfile = createAsyncThunk<Profile, void, { state: RootState }>('user/getProfile', 
 	async (_, thunkApi) => {
 		const accessToken = thunkApi.getState().user.accessToken;
@@ -54,9 +70,6 @@ export const userSlice = createSlice({
 	name: 'user',
 	initialState: initialState,
 	reducers: {
-		// addAccessToken: (state, action: PayloadAction<string>) => {
-		// 	state.accessToken = action.payload;
-		// },
 		logOut: (state) => {
 			state.accessToken = null;
 		},
@@ -74,6 +87,15 @@ export const userSlice = createSlice({
 		});
 		builder.addCase(login.rejected, (state, action) => {
 			state.loginErrorMessage = action.error.message;
+		});
+		builder.addCase(register.fulfilled, (state, action) => {
+			if (!action.payload) {
+				return;
+			}
+			state.accessToken = action.payload.accessToken;
+		});
+		builder.addCase(register.rejected, (state, action) => {
+			state.registerErrorMessage = action.error.message;
 		});
 		builder.addCase(getProfile.fulfilled, (state, action) => {
 			state.profile = action.payload;

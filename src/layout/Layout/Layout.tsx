@@ -12,6 +12,7 @@ export function Layout() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
 	const profile = useSelector((state: RootState) => state.user.profile);
+	const itemsCount = useSelector((state: RootState) => state.cart.items.reduce((total, item) => total + item.count, 0));
 
 	useEffect(() => {
 		dispatch(getProfile());
@@ -49,7 +50,7 @@ export function Layout() {
 					[styles['catalog-item_active']]: isActive
 				})}>
 					<img src='/cart.svg' alt='Иконка Корзина' className={styles['catalog-icon']} />
-					<span>Корзина</span>
+					<span>Корзина</span>{itemsCount}
 				</NavLink>
 				<Button className={styles['exit']} onClick={logOut}>Выйти</Button>
 			</div>

@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userSlice, { USERDATA_KEY_PERSISTENT_STATE } from './user.slice';
 import { saveState } from './storage';
+import cartSlice from './cart.slice';
 
 export const store = configureStore({
 	reducer: {
- 		user: userSlice
+ 		user: userSlice,
+		cart: cartSlice
 	}
 });
 
