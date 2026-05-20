@@ -7,7 +7,7 @@ import styles from './Catalog.module.css';
 import { PREFIX } from '../../api/api';
 import type { Products } from '../../interfaces/Products.interface';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import axios, { AxiosError } from 'axios';
 import { CatalogList } from './CatalogList/CatalogList';
 
@@ -16,16 +16,28 @@ export function Catalog() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | undefined>();
 
-	const getProducts = async () => {
+	const [filter, setFilter] = useState<string>();
+
+	useEffect(() => {
+		getProducts(filter);
+	}, [filter]);	
+
+	const getProducts = async (filter?: string) => {
 		setIsLoading(true);
-		await new Promise<void>((resolve) => {
-			setTimeout(() => {
-				resolve();
-			}, 2000);
-		});
-		
+		// await new Promise<void>((resolve) => {
+		// 	setTimeout(() => {
+		// 		resolve();
+		// 	}, 2000);
+		// });
+		const url = filter ? `${PREFIX}/products/search` : `${PREFIX}/products`;
 		try {
-			const { data } = await axios.get<Products>(`${PREFIX}/products`);
+			const { data } = await axios.get<Products>(url, {
+				params: {
+					q: filter,
+					limit: 30,
+					skip: 0
+				}
+			});
 			setProducts(data);
 			setIsLoading(false);
 		} catch (error) {
@@ -36,32 +48,23 @@ export function Catalog() {
 			setIsLoading(false);
 			return;
 		}
-		// try {
-		// 	const response = await fetch(`${PREFIX}/products`);
-		// 	if (!response.ok) {
-		// 		console.error('Failed to fetch products');
-		// 		return;
-		// 	}
-		// 	const data = await response.json() as Products;
-		// 	setProducts(data);
-		// } catch (error) {
-		// 	console.error('Error fetching products:', error);
-		// 	return;
-		// }
 	};
 
-	useEffect(() => {
-		getProducts();
-	}, []);
+	const changeFilter = (e: ChangeEvent<HTMLInputElement>) => {
+		setFilter(e.target.value);
+	};
 
 	return <>
 		<div className={styles['head']}>
 			<Heading>Каталог</Heading>
-			<Search name='search'></Search>
+			<Search onChange={changeFilter} name='search'></Search>
 		</div>
 		<div className={styles['products']}>
 			{
-				!isLoading && <CatalogList products={products.products} />
+				!isLoading && products.products.length > 0 && <CatalogList products={products.products} />
+			}
+			{
+				!isLoading && products.products.length === 0 && <>Товары не найдены</>
 			}
 			{
 				isLoading && <>Загрузка...</>
