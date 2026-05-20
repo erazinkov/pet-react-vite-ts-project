@@ -2,7 +2,7 @@
     text-decoration: none;
 }
 
-.card {
+.item {
     background: var(--white-color);
     border-radius: 1rem;
     width: 20rem;
@@ -14,7 +14,7 @@
     transition: transform 0.3s ease;
 }
 
-.card:hover {
+.item:hover {
     transform: scale(1.05);
 }
 

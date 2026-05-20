@@ -1,0 +1,44 @@
+.item {
+    display: flex;
+    gap: 1rem;
+    background: var(--white-color);
+    border-radius: 1rem;
+    max-width: 25rem;
+    overflow: hidden;
+    box-shadow: 1rem;
+    box-shadow: var(--text-color) 0px 0px 0.25em, white 0px 0.25em 1em;
+    margin: 1rem;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+}
+.item:hover {
+    transform: scale(1.05);
+}
+.item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+.item-count {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+.button {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    border: none;
+    cursor: pointer;
+}
+.button_disabled {
+    background-color: var(--text-secondary-color);
+    cursor: not-allowed;    
+}
+
+.button:hover {
+    background-color: var(--primary-hover-color);
+}

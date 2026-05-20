@@ -49,11 +49,11 @@ export function Login() {
 		<form className={styles['form']} onSubmit={onSubmit}>
 			<div className={styles['form-field']}>
 				<label htmlFor='username'>Username</label>
-				<Input type="text" name="username" id="username" placeholder='Username' autoComplete="username"/>
+				<Input defaultValue={'emilys'} type="text" name="username" id="username" placeholder='Username' autoComplete="username"/>
 			</div>
 			<div className={styles['form-field']}>
 				<label htmlFor='password'>Password</label>
-				<Input type="password" name="password" id="password" placeholder='Password'/>
+				<Input defaultValue={'emilyspass'} type="password" name="password" id="password" placeholder='Password'/>
 			</div>
 			<Button>Вход</Button>
 			<div>Нет аккаунта?</div>
