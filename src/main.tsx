@@ -15,9 +15,6 @@ import { Register } from './pages/Register/Register.tsx';
 import { Auth } from './api/auth.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store/store.ts';
-// import { lazy } from 'react';
-
-// const Catalog = lazy(() => import('./pages/Catalog/Catalog.tsx'));
 
 const router = createBrowserRouter([
 	{
