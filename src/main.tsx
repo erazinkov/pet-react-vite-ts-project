@@ -15,9 +15,7 @@ import { Register } from './pages/Register/Register.tsx';
 import { Auth } from './api/auth.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store/store.ts';
-// import { lazy } from 'react';
-
-// const Catalog = lazy(() => import('./pages/Catalog/Catalog.tsx'));
+import { Spinner } from './components/Spinner/Spinner.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -26,7 +24,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: '/',
-				element: <Suspense fallback={<>Загрузка...</>}>
+				element: <Suspense fallback={<Spinner />}>
 					<Catalog />
 				</Suspense>
 			},
@@ -42,7 +40,9 @@ const router = createBrowserRouter([
 					return {
 						data: new Promise((resolve, reject) => {
 							setTimeout(() => {
-								axios.get(`${PREFIX}/products/${params.id}`).then(res => resolve(res.data)).catch(e => reject(e));
+								axios.get(`${PREFIX}/products/${params.id}`).then(res => resolve(res.data)).catch(e => {
+									reject(e);
+								});
 							}, 1000);
 						})
 					};

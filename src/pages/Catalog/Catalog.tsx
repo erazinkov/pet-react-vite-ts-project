@@ -9,6 +9,7 @@ import type { Products } from '../../interfaces/Products.interface';
 import { useEffect, useState, type ChangeEvent } from 'react';
 import axios, { AxiosError } from 'axios';
 import { CatalogList } from './CatalogList/CatalogList';
+import { Spinner } from '../../components/Spinner/Spinner';
 
 export function Catalog() {
 	const [products, setProducts] = useState<Products>({ products: [], total: 0, skip: 0, limit: 30 });
@@ -66,7 +67,7 @@ export function Catalog() {
 				!isLoading && products.products.length === 0 && <>Товары не найдены</>
 			}
 			{
-				isLoading && <>Загрузка...</>
+				isLoading && <Spinner />
 			}
 			{
 				error && <>{error}</>
