@@ -20,7 +20,7 @@ function CatalogItem(props: CatalogItemProps) {
 				<div className={styles['header']} style={{
 					backgroundImage: `url('${props.thumbnail}')`,
 					backgroundPosition: 'center',
-					backgroundSize: 'cover',
+					backgroundSize: 'contain',
 					backgroundRepeat: 'no-repeat'
 				}}>
 					<div className={styles['price']}>{priceFormatter.format(props.price)}</div>

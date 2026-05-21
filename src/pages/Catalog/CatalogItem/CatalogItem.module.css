@@ -5,17 +5,11 @@
 .item {
     background: var(--white-color);
     border-radius: 1rem;
-    width: 20rem;
-    height: 20rem;
     color: var(--text-color);
     overflow: hidden;
-    box-shadow: 1rem;
-    box-shadow: var(--text-color) 0px 0px 0.25em, white 0px 0.25em 1em;
-    transition: transform 0.3s ease;
-}
-
-.item:hover {
-    transform: scale(1.05);
+    border: 1px solid var(--text-secondary-color);
+    aspect-ratio: 1 / 1;
+    max-width: 20rem;
 }
 
 .header {
@@ -28,6 +22,15 @@
     position: absolute;
     top: 0.5rem;
     left: 0.5rem;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.description {
+    overflow: hidden;
+    font-size: smaller;
 }
 
 .add {
