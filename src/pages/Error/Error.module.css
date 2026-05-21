@@ -1,0 +1,17 @@
+.error {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.error-status {
+    font-size: 10rem;
+}
+
+.error-code {
+    font-size: 2rem;
+}
+
+
