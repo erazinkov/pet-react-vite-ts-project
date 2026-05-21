@@ -15,6 +15,7 @@ import { Register } from './pages/Register/Register.tsx';
 import { Auth } from './api/auth.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store/store.ts';
+import { Spinner } from './components/Spinner/Spinner.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: '/',
-				element: <Suspense fallback={<>Загрузка...</>}>
+				element: <Suspense fallback={<Spinner />}>
 					<Catalog />
 				</Suspense>
 			},
