@@ -1,0 +1,36 @@
+.item {
+    display: flex;
+    background: var(--white-color);
+    max-width: 50rem;
+    overflow: hidden;
+    margin: 0.25rem;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+.item-count {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+.button {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    border: none;
+    cursor: pointer;
+}
+.button_disabled {
+    background-color: var(--text-secondary-color);
+    cursor: not-allowed;    
+}
+
+.button:hover {
+    background-color: var(--primary-hover-color);
+}

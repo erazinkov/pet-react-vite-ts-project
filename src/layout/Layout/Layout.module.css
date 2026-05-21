@@ -7,14 +7,45 @@
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
-    border-right: 1px solid var(--primary-color);
+    border-right: 1px solid var(--text-color);
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    justify-content: center;
+}
+.logo-item {
+    max-width: 2.0rem;
+}
+.catalog {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-.menu-item {
+.catalog-item {
     display: flex;
     gap: 0.5rem;
     text-decoration: none;
     color: var(--text-color);
     font-size: 1.25rem;
     font-family: var(--roboto);
+}
+
+.catalog-item_active {
+    color: var(--primary-color);
+}
+
+.catalog-item:hover {
+    color: var(--primary-color);
+}
+
+.exit {
+    margin-top: auto;
+}
+
+.main {
+    width: 100%;
+    padding: 1rem;
 }
